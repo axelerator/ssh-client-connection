@@ -5,6 +5,8 @@
       rel="stylesheet"
       href="xterm/dist/xterm.css"
     />
+    <link rel="stylesheet" href="styles.css"/>
+
     <script src="xterm/dist/xterm.js"></script>
     <script src="xterm/dist/addons/fit/fit.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -15,9 +17,10 @@
         "load",
         function() {
           var terminalContainer = document.getElementById("terminal-container");
-          var term = new Terminal({ cursorBlink: true });
+          var term = new Terminal({ cursorBlink: true, fontSize: 6 });
+
           term.open(terminalContainer);
-          term.fit();
+          //term.fit();
 
           socket = io.connect();
           socket.on("connect", function() {
@@ -55,8 +58,8 @@
       }
 
       #terminal-container {
-        width: 960px;
-        height: 600px;
+        width: 800px;
+        height: 800px;
         display: inline-block;
         padding: 2px;
       }
@@ -75,10 +78,22 @@
       #terminal-container .terminal:focus .terminal-cursor {
         background-color: #fafafa;
       }
+
+      #split {
+        display: flex
+      }
+
     </style>
   </head>
 
   <body>
-    <div id="terminal-container"></div>
+    <div id="split">
+      <div id="terminal-container"></div>
+      <div>
+        <div id="build-info" />
+        <main><div id="main-content" /></main>
+        <script src="loader.js"></script>
+      </div>
+    </div>
   </body>
 </html>
